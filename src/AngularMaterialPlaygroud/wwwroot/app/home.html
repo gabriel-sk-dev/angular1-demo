@@ -1,0 +1,114 @@
+﻿<h1>Preparando ambiente para uma aplicação angular</h1>
+<ol>
+    <li>No visual studio criar um projeto do tipo .NET CORE > ASP.NET Core Web Application (.NET Core) </li>
+    <li>Adicionar arquivo bower para gerenciar pacotes. Acesso pelo botão direito no projeto > Add > New Item > .NET Core > Client-side > Bower Configuration File</li>
+    <li>Criar uma pasta App dentro do wwwroot. Clicar com o botão direito na pasta wwwroot > Add > New Folder > [app]</li>
+    <li>Adicionar pacote angular.js atráves do bower. Abrir arquivo bower.json e adicionar a seguinte linha dentro de dependencies: "angular": "~1.6.2"</li>
+    <li>Adicionar arquivo html para ser o ponto de entrada do site, para isso: Clicar com o botão direito na pasta wwwroot > Add > .NET Core > Client-side > Html File > [index].html</li>
+    <li>
+        <p>
+            No arquivo index.html vamos adicionar a referencia aos arquivos do angular.js, para isso: Abra o arquivo index.html dentro da tag BODY vamos adicionar o seguinte:
+            <blockquote>
+                &lt;script src="lib/angular/angular.min.js" /&gt;
+            </blockquote>
+        </p>
+    </li>
+</ol>
+<h1>Configurando a aplicação angular (Hello world)</h1>
+<ol>
+    <li>Adicionar pacote ui-router atráves do bower. Abrir arquivo bower.json e adicionar a seguinte linha dentro de dependencies e após a dependencia do angular: "ui-router": "~0.4.2"</li>
+    <li>Na pasta app, criar um arquivo js conforme os passos: Botão direito na pasta app > Add > New Item > .NET Core > Client-side > JavaScript file > [main.module].js</li>
+    <li>
+        <p>
+            Abrir o arquivo main.module.js e adicionar o seguinte bloco:
+            <blockquote>
+                (function () {
+                //Código javascript para ser adicionado
+                })();
+            </blockquote>
+        </p>
+    </li>
+    <li>
+        <p>
+            Dentro da instrução criada anteriormente, vamos adicionar o primeiro módulo angular. para isso vamos usar o seguinte código:
+            <blockquote>
+                angular.module('angularApp', [
+                'ui.router'
+                ]);
+            </blockquote>
+        </p>
+    </li>
+    <li>Precisamos informar que o documento index.html irá trabalhar com o angular, para isso vamos informar o seguinte atributo na tag HTML deste documento: ng-app="angularApp"</li>
+    <li>
+        <p>
+            Agora precisamos adicinonar uma referencia ao nosso arquivo main.module.js dentro do arquivo index.html. Para isso, no arquivo index.html, logo após a referencia de script do angular.min.js vamos adicionar a seguinte referencia>:
+            <blockquote>
+                &lt;script src="app/main.module.js" /&gt;
+            </blockquote>
+        </p>
+    </li>
+    <li>
+        <p>
+            No arquivo index.html vamos adicionar a referencia aos arquivos do ui-router.js, para isso: Abra o arquivo index.html dentro da tag BODY vamos adicionar o seguinte logo após a referencia de script do angular.min.js:
+            <blockquote>
+                &lt;script src="lib/ui-router/release/angular-ui-router.min.js" /&gt;
+            </blockquote>
+        </p>
+    </li>
+</ol>
+<h2>Controllers</h2>
+<p>Precisamos de controllers para fazerem o trabalho de criar e manter todos os dados e comportamentos de um página que desejamos!</p>
+<p>Imagine que o arquivo index.html é um container para exibirmos qualquer página que precisarmos, sem a necessidade de fazer uma requisição para renderizar novos arquivos.</p>
+<p>Para implementarmos nossas página vamos precisar:</p>
+<ol>
+    <li>
+        Precisamos adicionar um container para exibirmos nossas páginas dentro do arquivo index.html. Para isso, dentro do arquivo index.html e dentro da tag BODY adicione o código:
+        <blockquote>
+            &lt;div ui-view&gt;&lt;/div&gt;
+        </blockquote>
+    </li>
+    <li>Vamos adicionar nosso primeiro controller, para isso: Botão direito na pasta app > Add > New Item > .NET Core > Client-side > JavaScript file > [home.controller].js </li>
+    <li>
+        Dentro do arquivo home.controller.js adicione o seguinte código:
+        <blockquote>
+            (function () {
+            angular
+            .module('angularApp')
+            .controller('angularApp.home.controller', angularAppHomeController);
+
+            function angularAppHomeController() {
+            var vm = this;
+
+            activate();
+
+            function activate() {
+
+            }
+            }
+            })();
+        </blockquote>
+    </li>
+    <li>Agora precisamos criar uma página HTML para representar o conteúdo que desejamos exibir. Botão direito na pasta app > Add > New Item > .NET Core > Client-side > Html file > [home].html</li>
+    <li>Dentro do arquivo home.html apague todo o conteúdo e escreva: Olá angularJs</li>
+    <li>
+        Agora precisamos ensinar nossa aplicação qual caminho será utilizado para executar o controller que criamos. Adicione o seguinte código dentro do arquivo main.module.js, logo após da declaração do módulo angular.
+        <blockquote>
+            angular
+            .module('angularApp')
+            .config(configAngularapp);
+            
+            configAngularapp.$inject = ['$stateProvider'];
+            function configAngularapp($stateProvider) {
+
+                $stateProvider
+                    .state('home',
+                    {
+                        url: "/home",
+                        templateUrl: "app/home.html",
+                        controller: "angularAppHomeController",
+                        controllerAs: "vm"
+                    });
+            }
+        </blockquote>
+    </li>
+</ol>

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html ng-app="angularApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Aplicação exemplo para angular</title>
+</head>
+<body>
+    <a ui-sref="home"><span>1</span> Home</a> | <a ui-sref="binding"><span>2</span> Bindings</a> | <a ui-sref="list"><span>3</span> Listagens</a> 
+
+    <div ui-view></div>
+
+    <!-- lib javascripts -->
+    <script src="lib/angular/angular.min.js"></script>    
+    <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+    
+    <!-- lib modules -->
+    <script src="app/main.module.js"></script>
+
+    <!-- lib Controllers -->
+    <script src="app/home.controller.js"></script>
+    <script src="app/listagens/list.controller.js"></script>
+    <script src="app/binding/binding.controller.js"></script>
+</body>
+</html>
